@@ -4,7 +4,11 @@ namespace Codecool.StockTrader
     {
         public static void Main()
         {
-            TradingApp app = new TradingApp();
+            ILogger logger = new FileLogger();
+            RemoteURLReader remoteUrlReader = new RemoteURLReader();
+            StockAPIService stockApiService = new StockAPIService(remoteUrlReader);
+            Trader trader = new Trader(stockApiService, logger);
+            TradingApp app = new TradingApp(trader, logger);
 
             app.Start();
         }

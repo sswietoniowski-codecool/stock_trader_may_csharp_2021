@@ -5,9 +5,6 @@ namespace Codecool.StockTrader
 {
     public class FileLogger : ILogger
     {
-        public static FileLogger Instance => _instance ??= new FileLogger();
-        private static FileLogger _instance;
-
         public void Log(string message)
         {
             var date = DateTime.Now;

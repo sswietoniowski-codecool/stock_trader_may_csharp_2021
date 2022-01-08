@@ -2,9 +2,9 @@ using System.Net;
 
 namespace Codecool.StockTrader
 {
-    public static class RemoteURLReader
+    public class RemoteURLReader
     {
-        public static string ReadFromURL(string endpoint)
+        public virtual string ReadFromURL(string endpoint)
         {
             using WebClient client = new WebClient();
             string s = client.DownloadString(endpoint);

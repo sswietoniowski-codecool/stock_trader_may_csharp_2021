@@ -2,13 +2,13 @@ namespace Codecool.StockTrader
 {
     public class Trader
     {
-        public static Trader Instance => _instance ??= new Trader();
-        private static Trader _instance;
+        private ILogger _logger;
         private static StockAPIService _stockService;
 
-        public Trader()
+        public Trader(StockAPIService stockApiService, ILogger logger)
         {
-            _stockService = new StockAPIService();
+            _logger = logger;
+            _stockService = stockApiService;
         }
 
         public bool Buy(string symbol, double bid)
@@ -20,11 +20,11 @@ namespace Codecool.StockTrader
             if (result)
             {
                 _stockService.Buy(symbol);
-                FileLogger.Instance.Log($"Purchased {symbol} stock at ${bid}, since it's higher than the current price (${price}).");
+                _logger.Log($"Purchased {symbol} stock at ${bid}, since it's higher than the current price (${price}).");
             }
             else
             {
-                FileLogger.Instance.Log($"Bid for {symbol} was ${bid} but the stock price is ${price}, no purchase was made.");
+                _logger.Log($"Bid for {symbol} was ${bid} but the stock price is ${price}, no purchase was made.");
             }
 
             return result;

@@ -7,6 +7,15 @@ namespace Codecool.StockTrader
     /// </summary>
     public class TradingApp
     {
+        private ILogger _logger;
+        private Trader _trader;
+
+        public TradingApp(Trader trader, ILogger logger)
+        {
+            _trader = trader;
+            _logger = logger;
+        }
+
         public void Start()
         {
             Console.WriteLine("Enter a stock symbol (for example aapl):");
@@ -17,23 +26,23 @@ namespace Codecool.StockTrader
             {
                 try
                 {
-                    if (Trader.Instance.Buy(symbol, price))
+                    if (_trader.Buy(symbol, price))
                     {
-                        FileLogger.Instance.Log("Purchased stock!");
+                        _logger.Log("Purchased stock!");
                     }
                     else
                     {
-                        FileLogger.Instance.Log("Couldn't buy the stock at that price.");
+                        _logger.Log("Couldn't buy the stock at that price.");
                     }
                 }
                 catch (Exception e)
                 {
-                    FileLogger.Instance.Log($"Error while attempting to purchase the stock: {e.Message}");
+                    _logger.Log($"Error while attempting to purchase the stock: {e.Message}");
                 }
             }
             else
             {
-                FileLogger.Instance.Log("Invalid input.");
+                _logger.Log("Invalid input.");
             }
         }
     }
