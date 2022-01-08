@@ -11,6 +11,8 @@ namespace Codecool.StockTrader
         private const string APIPath = "https://run.mocky.io/v3/9e14e086-84c2-4f98-9e36-54928830c980?stock=";
         private RemoteURLReader _remoteUrlReader;
 
+        public StockAPIService() {}
+
         public StockAPIService(RemoteURLReader remoteUrlReader)
         {
             _remoteUrlReader = remoteUrlReader;
